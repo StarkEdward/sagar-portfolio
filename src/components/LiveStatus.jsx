@@ -110,7 +110,7 @@ const LiveStatus = () => {
                 Live System Status
               </span>
               {/* Blinking recording indicator */}
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-[pulse_1s_ease-in-out_infinite]"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-[pulse_1s_ease-in-out_infinite]"></span>
             </div>
             
             {/* Actual Status Text */}
