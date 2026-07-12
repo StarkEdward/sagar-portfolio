@@ -92,7 +92,7 @@ const LiveStatus = () => {
           <div className="flex items-center gap-2">
             <span className="text-sm md:text-base shrink-0 opacity-90 grayscale-[0.2] drop-shadow-md">{status.icon}</span>
             <span className="text-white/90 text-xs md:text-sm font-semibold tracking-wide truncate max-w-[220px] md:max-w-[280px]">
-              {status.text}
+              <span className="text-red-400 font-bold">Currently:</span> {status.text}
             </span>
           </div>
         </div>
