@@ -176,7 +176,7 @@ export const projects = [
       github: "https://github.com/StarkEdward",
       demo: null,
     },
-    image: "/projects/Screenshot 2026-07-10 223239.png",
+    image: "/projects/bingobash.png",
     isFlagship: true,
   },
   {
@@ -191,7 +191,7 @@ export const projects = [
       github: "https://github.com/StarkEdward",
       demo: null,
     },
-    image: "/projects/Screenshot 2026-07-10 223440.png",
+    image: "/projects/tejpraksh.online.png",
     isFlagship: false,
   },
   {
@@ -206,7 +206,7 @@ export const projects = [
       github: "https://github.com/StarkEdward",
       demo: null,
     },
-    image: "/projects/Screenshot 2026-07-10 223708.png",
+    image: "/projects/anaesthesiolgoy.png",
     isFlagship: false,
   },
 ];
