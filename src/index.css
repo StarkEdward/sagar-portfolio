@@ -40,13 +40,15 @@ body {
    Z-AXIS CYBER TUNNEL EXPERIMENT (OVERRIDE)
    Rollback plan: Simply delete this block!
 ------------------------------------------ */
-[data-aos="fade-up"] {
-  transform: perspective(1200px) translateZ(-300px) translateY(100px) scale(0.80) rotateX(10deg) !important;
-  opacity: 0;
-  transition-property: transform, opacity !important;
-  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+body [data-aos="fade-up"] {
+  transform: perspective(1000px) scale(0.3) translateY(300px) rotateX(30deg) !important;
+  opacity: 0 !important;
+  filter: blur(8px) brightness(0.2) !important;
+  transition-property: transform, opacity, filter !important;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
-[data-aos="fade-up"].aos-animate {
-  transform: perspective(1200px) translateZ(0px) translateY(0px) scale(1) rotateX(0deg) !important;
-  opacity: 1;
+body [data-aos="fade-up"].aos-animate {
+  transform: perspective(1000px) scale(1) translateY(0px) rotateX(0deg) !important;
+  opacity: 1 !important;
+  filter: blur(0px) brightness(1) !important;
 }
