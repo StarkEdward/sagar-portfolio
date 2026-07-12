@@ -77,7 +77,7 @@ const LiveStatus = () => {
         `}
       </style>
 
-      <div className="fixed top-[75px] left-2 right-10 sm:left-4 sm:right-20 md:top-24 md:left-8 md:right-auto z-[60] pointer-events-auto group">
+      <div className="fixed top-[75px] left-2 right-6 sm:left-4 sm:right-16 md:top-24 md:left-8 md:right-auto z-[60] pointer-events-auto group scale-[0.75] sm:scale-90 md:scale-100 origin-top-left transition-transform duration-500">
         
         {/* Outer Cyberpunk Container */}
         <div 
