@@ -52,11 +52,11 @@ const LiveStatus = () => {
   }, []);
 
   return (
-    <div className="fixed top-24 left-4 md:left-8 z-[60] pointer-events-none group">
+    <div className="fixed top-[85px] left-2 md:top-24 md:left-8 z-[60] pointer-events-auto group origin-top-left scale-[0.75] sm:scale-90 md:scale-100 transition-transform duration-500">
       
       {/* Outer Cyberpunk Container */}
       <div 
-        className="relative bg-[#050505]/95 backdrop-blur-md border border-red-500/40 p-3 md:p-3.5 flex items-center gap-3.5 md:gap-4 shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all duration-500 group-hover:shadow-[0_0_25px_rgba(239,68,68,0.4)] group-hover:border-red-500/70"
+        className="relative bg-[#050505]/95 backdrop-blur-md border border-red-500/40 p-3 md:p-3.5 flex items-center gap-3.5 md:gap-4 shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all duration-500 group-hover:shadow-[0_0_25px_rgba(239,68,68,0.4)] group-hover:border-red-500/70 cursor-pointer"
         style={{ clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }}
       >
         {/* Subtle breathing glow background behind the box */}
@@ -91,7 +91,7 @@ const LiveStatus = () => {
           {/* Actual Status Text */}
           <div className="flex items-center gap-2">
             <span className="text-sm md:text-base shrink-0 opacity-90 grayscale-[0.2] drop-shadow-md">{status.icon}</span>
-            <span className="text-white/90 text-xs md:text-sm font-semibold tracking-wide truncate max-w-[220px] md:max-w-[280px]">
+            <span className="text-white/90 text-xs md:text-sm font-semibold tracking-wide whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] sm:max-w-[200px] md:max-w-[280px] group-hover:max-w-[400px] md:group-hover:max-w-[500px] transition-[max-width] duration-700 ease-in-out">
               <span className="text-red-400 font-bold">Currently:</span> {status.text}
             </span>
           </div>
