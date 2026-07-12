@@ -1,6 +1,7 @@
 import React from 'react'
 import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
+import LiveStatus from './components/LiveStatus'
 import Hero from './components/Hero'
 import About from './components/About'
 import TechnicalSkills from './components/TechnicalSkills'
@@ -19,6 +20,7 @@ function App() {
     <>
       <Preloader />
       <Navbar />
+      <LiveStatus />
       <Hero />
       <About />
       <TechnicalSkills />
