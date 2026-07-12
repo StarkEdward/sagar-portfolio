@@ -107,7 +107,7 @@ const LiveStatus = () => {
             {/* Top Label */}
             <div className="flex items-center gap-2 mb-0.5">
               <span className="text-[9px] md:text-[10px] text-red-500 font-mono font-bold tracking-widest uppercase">
-                Live System Status
+                Live: Tracking Sagar
               </span>
               {/* Blinking recording indicator */}
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-[pulse_1s_ease-in-out_infinite]"></span>
