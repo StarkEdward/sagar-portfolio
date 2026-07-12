@@ -1,5 +1,108 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { projects, socialLinks } from '../data/portfolioData';
+
+const TerminalAnimation = () => {
+  const [text, setText] = useState('');
+  const [line2, setLine2] = useState('');
+  const [line3, setLine3] = useState('');
+  const [progress, setProgress] = useState('');
+  
+  useEffect(() => {
+    let isCancelled = false;
+
+    const runAnimation = async () => {
+      while (!isCancelled) {
+        // Reset state for looping
+        setText('');
+        setLine2('');
+        setLine3('');
+        setProgress('');
+
+        // Helper for typing text
+        const typeText = async (setter, fullText, speed = 40) => {
+          for (let i = 0; i <= fullText.length; i++) {
+            if (isCancelled) return;
+            setter(fullText.substring(0, i));
+            await new Promise(r => setTimeout(r, speed));
+          }
+        };
+
+        // Helper for progressive counting
+        const countProgress = async () => {
+          let current = 0;
+          while (current < 99) {
+            if (isCancelled) return;
+            current += Math.floor(Math.random() * 15) + 5;
+            if (current > 99) current = 99;
+            setProgress(`[${current}%]`);
+            await new Promise(r => setTimeout(r, 150));
+          }
+        };
+
+        await new Promise(r => setTimeout(r, 1000));
+        if (isCancelled) break;
+        
+        await typeText(setText, "> git fetch origin new-projects");
+        
+        await new Promise(r => setTimeout(r, 500));
+        if (isCancelled) break;
+        
+        await typeText(setLine2, "> pulling architecture blueprints...");
+        
+        await new Promise(r => setTimeout(r, 500));
+        if (isCancelled) break;
+        
+        await typeText(setLine3, "> compiling dependencies ");
+        
+        await countProgress();
+        
+        // Wait at 99% before clearing and looping
+        await new Promise(r => setTimeout(r, 3500));
+      }
+    };
+
+    runAnimation();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
+  return (
+    <div className="w-full bg-[#0a0a0a] rounded-lg border border-white/10 p-5 font-mono text-xs md:text-sm text-left shadow-2xl relative overflow-hidden group-hover:border-white/20 transition-colors">
+      {/* Mac window dots */}
+      <div className="flex gap-2 mb-4">
+        <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+        <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+        <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+      </div>
+      
+      {/* Terminal content */}
+      <div className="space-y-2 min-h-[80px]">
+        <div className="text-green-400">
+          {text}
+          {text.length > 0 && line2.length === 0 && <span className="animate-pulse">_</span>}
+        </div>
+        {line2.length > 0 && (
+          <div className="text-blue-400">
+            {line2}
+            {line2.length > 0 && line3.length === 0 && <span className="animate-pulse">_</span>}
+          </div>
+        )}
+        {line3.length > 0 && (
+          <div className="text-red-400">
+            {line3}
+            <span className="ml-2">{progress}</span>
+            <span className="animate-pulse ml-1">_</span>
+          </div>
+        )}
+      </div>
+      
+      {/* Subtle scanline effect */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.02),rgba(255,255,255,0))] opacity-50 translate-y-[-100%] group-hover:animate-[shimmer_2s_infinite]"></div>
+    </div>
+  );
+};
 
 const GitHubIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -162,6 +265,44 @@ const Projects = () => {
               aosDelay={String((index + 1) * 100)}
             />
           ))}
+
+          {/* Coming Soon Card with Terminal Combo */}
+          <div 
+            data-aos="fade-up"
+            data-aos-delay="400"
+            className="relative rounded-2xl p-[1px] group transition-all duration-500"
+          >
+            <div className="rounded-2xl p-8 md:p-10 h-full backdrop-blur-md transition-all duration-500 bg-[#111111]/40 hover:bg-[#111111]/80 flex flex-col md:flex-row items-center justify-between gap-8 border-2 border-dashed border-white/10 hover:border-red-500/30">
+              
+              {/* Left Side: Lock & Text */}
+              <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1">
+                <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:border-red-500/30 transition-colors relative">
+                  <svg className="w-8 h-8 text-white/30 group-hover:text-red-400 transition-colors relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  {/* Ping animation on hover */}
+                  <div className="absolute inset-0 rounded-full bg-red-500/20 group-hover:animate-ping opacity-0 group-hover:opacity-100"></div>
+                </div>
+
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span className="text-3xl font-black text-white/5 font-serif italic">04</span>
+                  <h3 className="text-xl md:text-2xl font-black text-white/60 group-hover:text-white/90 tracking-tight transition-colors">
+                    Next Big Thing
+                  </h3>
+                </div>
+                
+                <p className="text-white/30 group-hover:text-white/50 text-sm md:text-base leading-relaxed max-w-sm font-medium transition-colors">
+                  Currently architecting something new in the background. Check back later or explore my GitHub for daily cloud experiments.
+                </p>
+              </div>
+
+              {/* Right Side: Terminal Animation */}
+              <div className="w-full md:w-[50%] lg:w-[60%] shrink-0">
+                <TerminalAnimation />
+              </div>
+
+            </div>
+          </div>
         </div>
 
         {/* GitHub CTA */}
