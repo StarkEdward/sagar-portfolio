@@ -22,6 +22,14 @@ const Navbar = () => {
 
   const hireMeMailto = `tel:${personalInfo.phone.replace(/ /g, '')}`;
 
+  const handleNavClick = (e, link) => {
+    if (link === 'Home') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setIsOpen(false);
+  };
+
   return (
     <nav 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -36,7 +44,7 @@ const Navbar = () => {
         
         {/* Left Side: Logo/Name */}
         <div className="flex items-center">
-          <a href="#" className="text-white text-2xl font-black tracking-tight whitespace-nowrap">
+          <a href="#" onClick={(e) => handleNavClick(e, 'Home')} className="text-white text-2xl font-black tracking-tight whitespace-nowrap cursor-pointer">
             {personalInfo.brandName}<span className="text-red-500">.</span>
           </a>
         </div>
@@ -47,6 +55,7 @@ const Navbar = () => {
             <a 
               key={link} 
               href={`#${link.toLowerCase()}`}
+              onClick={(e) => link === 'Home' && handleNavClick(e, link)}
               className="text-white/80 hover:text-white font-medium relative group transition-colors duration-300"
             >
               {link}
@@ -94,7 +103,7 @@ const Navbar = () => {
             <a 
               key={link} 
               href={`#${link.toLowerCase()}`}
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleNavClick(e, link)}
               className="text-white hover:text-black font-bold text-lg border-b border-white/20 pb-2 transition-colors"
             >
               {link}

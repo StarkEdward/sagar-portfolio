@@ -12,6 +12,7 @@ import Certificates from './components/Certificates'
 import SoftSkills from './components/SoftSkills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <SoftSkills />
       <Contact />
       <Footer />
+      <ScrollToTop />
     </>
   )
 }
