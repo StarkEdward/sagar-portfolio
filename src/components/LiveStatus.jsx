@@ -114,12 +114,13 @@ const LiveStatus = () => {
             </div>
             
             {/* Actual Status Text */}
-            <div className="flex items-center gap-2 flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 md:gap-2 flex-1 min-w-0">
               <span className="text-sm md:text-base shrink-0 opacity-90 grayscale-[0.2] drop-shadow-md">{status.icon}</span>
+              <span className="text-red-400 font-bold text-xs md:text-sm shrink-0">Currently:</span>
               
               <div className="marquee-container flex-1 min-w-0">
                 <span className="marquee-content text-white/90 text-xs md:text-sm font-semibold tracking-wide md:!p-0 md:!animate-none md:inline-block md:truncate md:max-w-[280px] md:group-hover:max-w-[500px] transition-[max-width] duration-700 ease-in-out">
-                  <span className="text-red-400 font-bold">Currently:</span> {status.text}
+                  {status.text}
                 </span>
               </div>
             </div>
