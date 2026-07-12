@@ -55,29 +55,27 @@ const LiveStatus = () => {
     <>
       <style>
         {`
-          @media (max-width: 767px) {
-            .marquee-container {
-              display: flex;
-              overflow: hidden;
-              white-space: nowrap;
-              width: 100%;
-              mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-              -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-            }
-            .marquee-content {
-              padding-left: 100%;
-              animation: marquee 16s linear infinite;
-              display: inline-block;
-            }
-            @keyframes marquee {
-              0% { transform: translate(0, 0); }
-              100% { transform: translate(-100%, 0); }
-            }
+          .marquee-container {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+          }
+          .marquee-content {
+            padding-left: 100%;
+            animation: marquee 16s linear infinite;
+            display: inline-block;
+          }
+          @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
           }
         `}
       </style>
 
-      <div className="fixed top-[75px] left-2 right-6 sm:left-4 sm:right-16 md:top-24 md:left-8 md:right-auto z-[60] pointer-events-auto group scale-[0.75] sm:scale-[0.85] md:scale-[0.80] origin-top-left transition-transform duration-500">
+      <div className="fixed top-[75px] left-2 right-6 sm:left-4 sm:right-16 md:top-24 md:left-8 md:right-auto z-[60] pointer-events-auto group scale-[0.75] sm:scale-[0.85] md:scale-[0.65] origin-top-left transition-transform duration-500">
         
         {/* Outer Cyberpunk Container */}
         <div 
@@ -118,8 +116,8 @@ const LiveStatus = () => {
               <span className="text-sm md:text-base shrink-0 opacity-90 grayscale-[0.2] drop-shadow-md">{status.icon}</span>
               <span className="text-red-400 font-bold text-xs md:text-sm shrink-0">Currently:</span>
               
-              <div className="marquee-container flex-1 min-w-0">
-                <span className="marquee-content text-white/90 text-xs md:text-sm font-semibold tracking-wide md:!p-0 md:!animate-none md:inline-block md:truncate md:max-w-[280px] md:group-hover:max-w-[500px] transition-[max-width] duration-700 ease-in-out">
+              <div className="marquee-container flex-1 min-w-0 md:max-w-[280px]">
+                <span className="marquee-content text-white/90 text-xs md:text-sm font-semibold tracking-wide">
                   {status.text}
                 </span>
               </div>
