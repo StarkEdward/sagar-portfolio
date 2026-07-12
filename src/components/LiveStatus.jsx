@@ -66,7 +66,7 @@ const LiveStatus = () => {
             }
             .marquee-content {
               padding-left: 100%;
-              animation: marquee 10s linear infinite;
+              animation: marquee 16s linear infinite;
               display: inline-block;
             }
             @keyframes marquee {
