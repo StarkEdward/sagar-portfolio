@@ -25,60 +25,83 @@ const schedule = [
 ];
 
 const getCurrentStatus = () => {
-  // Get current time in IST (Indian Standard Time)
   const now = new Date();
   const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false };
   const formatter = new Intl.DateTimeFormat('en-US', options);
   const parts = formatter.formatToParts(now);
   const hour = parts.find(p => p.type === 'hour').value;
   const minute = parts.find(p => p.type === 'minute').value;
-  
-  // Format as HH:MM
   const currentTimeStr = `${hour}:${minute}`;
 
-  // Find matching schedule
   for (let item of schedule) {
     if (currentTimeStr >= item.start && currentTimeStr < item.end) {
       return item;
     }
   }
-  
-  // Fallback just in case
   return schedule[0];
 };
 
 const LiveStatus = () => {
   const [status, setStatus] = useState(getCurrentStatus());
-  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Update status every minute
     const interval = setInterval(() => {
       setStatus(getCurrentStatus());
     }, 60000);
     return () => clearInterval(interval);
   }, []);
 
-  // Hide the status bar if the user scrolls down a lot so it doesn't block content
-  // We'll let it fade out slightly or scale down if needed, but keeping it visible is fine too.
-  // Actually, a nice glassmorphism badge can stay visible!
-  
   return (
-    <div className="fixed top-24 left-4 md:left-8 z-[60] pointer-events-none transition-all duration-500">
-      <div className="bg-[#0a0a0a]/80 backdrop-blur-md border border-white/10 rounded-full py-2.5 px-4 md:px-5 flex items-center gap-3 shadow-[0_0_20px_rgba(0,0,0,0.6)]">
-        {/* Pulsing Dot */}
-        <div className="relative flex h-2.5 w-2.5 md:h-3 md:w-3 shrink-0">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 md:h-3 md:w-3 bg-green-500"></span>
+    <div className="fixed top-24 left-4 md:left-8 z-[60] pointer-events-none group">
+      
+      {/* Outer Cyberpunk Container */}
+      <div 
+        className="relative bg-[#050505]/95 backdrop-blur-md border border-red-500/40 p-3 md:p-3.5 flex items-center gap-3.5 md:gap-4 shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all duration-500 group-hover:shadow-[0_0_25px_rgba(239,68,68,0.4)] group-hover:border-red-500/70"
+        style={{ clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }}
+      >
+        {/* Subtle breathing glow background behind the box */}
+        <div className="absolute inset-0 bg-red-500/5 animate-[pulse_4s_ease-in-out_infinite]"></div>
+        
+        {/* Radar Icon */}
+        <div className="relative w-8 h-8 md:w-9 md:h-9 rounded-full border border-red-500/30 flex items-center justify-center shrink-0 bg-black overflow-hidden shadow-[inset_0_0_10px_rgba(239,68,68,0.2)]">
+          {/* Rotating sweep line */}
+          <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,transparent_70%,rgba(239,68,68,0.6)_100%)] animate-[spin_2s_linear_infinite]"></div>
+          {/* Concentric rings */}
+          <div className="absolute w-5 h-5 rounded-full border border-red-500/40"></div>
+          <div className="absolute w-2 h-2 rounded-full border border-red-500/60"></div>
+          {/* Center blip */}
+          <div className="absolute w-1 h-1 rounded-full bg-red-400 animate-ping"></div>
+          <div className="absolute w-1 h-1 rounded-full bg-red-500"></div>
+          {/* Horizontal/Vertical grid lines */}
+          <div className="absolute w-full h-[1px] bg-red-500/20"></div>
+          <div className="absolute h-full w-[1px] bg-red-500/20"></div>
         </div>
         
-        {/* Status Text */}
-        <div className="flex items-center gap-2 overflow-hidden">
-          <span className="text-sm md:text-base shrink-0">{status.icon}</span>
-          <span className="text-white/90 text-xs md:text-sm font-semibold tracking-wide whitespace-nowrap truncate max-w-[200px] md:max-w-none">
-            {status.text}
-          </span>
+        {/* Status Content */}
+        <div className="flex flex-col overflow-hidden relative z-10 pr-2">
+          {/* Top Label */}
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-[9px] md:text-[10px] text-red-500 font-mono font-bold tracking-widest uppercase">
+              Live System Status
+            </span>
+            {/* Blinking recording indicator */}
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-[pulse_1s_ease-in-out_infinite]"></span>
+          </div>
+          
+          {/* Actual Status Text */}
+          <div className="flex items-center gap-2">
+            <span className="text-sm md:text-base shrink-0 opacity-90 grayscale-[0.2] drop-shadow-md">{status.icon}</span>
+            <span className="text-white/90 text-xs md:text-sm font-semibold tracking-wide truncate max-w-[220px] md:max-w-[280px]">
+              {status.text}
+            </span>
+          </div>
         </div>
+
+        {/* Decorative corner tech elements */}
+        <div className="absolute top-0 right-0 w-3 h-[1px] bg-red-500"></div>
+        <div className="absolute top-0 right-0 w-[1px] h-3 bg-red-500"></div>
+        <div className="absolute bottom-0 left-0 w-3 h-[1px] bg-red-500"></div>
+        <div className="absolute bottom-0 left-0 w-[1px] h-3 bg-red-500"></div>
       </div>
     </div>
   );
