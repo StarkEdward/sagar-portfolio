@@ -36,19 +36,3 @@ body {
   90% { transform: translateY(-15px); opacity: 1; }
   100% { transform: translateY(0); opacity: 1; }
 }
-/* -----------------------------------------
-   Z-AXIS CYBER TUNNEL EXPERIMENT (OVERRIDE)
-   Rollback plan: Simply delete this block!
------------------------------------------- */
-body [data-aos="fade-up"] {
-  transform: perspective(1000px) scale(0.3) translateY(300px) rotateX(30deg) !important;
-  opacity: 0 !important;
-  filter: blur(8px) brightness(0.2) !important;
-  transition-property: transform, opacity, filter !important;
-  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-body [data-aos="fade-up"].aos-animate {
-  transform: perspective(1000px) scale(1) translateY(0px) rotateX(0deg) !important;
-  opacity: 1 !important;
-  filter: blur(0px) brightness(1) !important;
-}
