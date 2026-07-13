@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { personalInfo, socialLinks, footerContent } from '../data/portfolioData';
+import GridScan from './GridScan';
 
 const Footer = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    setMousePos({ x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: 0, y: 0 });
+  };
+
   return (
     <footer className="bg-[#111111] text-[#d4d4d4] py-16 px-6 md:px-12 w-full font-mono text-[10px] md:text-xs tracking-widest flex flex-col justify-between min-h-[50vh]">
       
@@ -24,10 +38,35 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Middle Huge Text */}
-      <div className="w-full flex justify-center items-center py-20 md:py-24 overflow-hidden">
-        <h2 className="text-[18vw] md:text-[16vw] leading-none font-sans font-bold tracking-tighter lowercase select-none text-[#f4f4f4] w-full text-center">
-          {personalInfo.brandName.toLowerCase()}
+      {/* Middle Huge Text with GridScan Background */}
+      <div 
+        className="relative w-full overflow-hidden flex justify-center items-center py-20 md:py-24"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* GridScan Background (Absolute to fill container) */}
+        <div className="absolute inset-0 z-0">
+          <GridScan
+            sensitivity={0.55}
+            lineThickness={1}
+            linesColor="#3a0000"
+            gridScale={0.1}
+            scanColor="#ff2a2a"
+            scanOpacity={0.6}
+            enablePost={true}
+            bloomIntensity={0.4}
+            chromaticAberration={0.002}
+            noiseIntensity={0.01}
+            enableWebcam={false}
+          />
+        </div>
+        
+        {/* Huge Foreground Text */}
+        <h2 
+          className="relative z-10 text-[11vw] md:text-[12vw] whitespace-nowrap leading-none font-sans font-bold tracking-tighter uppercase select-none text-[#f4f4f4] w-full text-center drop-shadow-[0_0_8px_rgba(255,42,42,0.15)] transition-transform duration-100 ease-out pointer-events-none"
+          style={{ transform: `translate(${mousePos.x * -30}px, ${mousePos.y * -30}px)` }}
+        >
+          {personalInfo.brandName.toUpperCase()}
         </h2>
       </div>
 
