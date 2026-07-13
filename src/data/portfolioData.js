@@ -189,7 +189,7 @@ export const projects = [
     techTags: ["React", "Express", "MongoDB", "AWS"],
     links: {
       github: "https://github.com/StarkEdward",
-      demo: null,
+      demo: "https://www.tejprakash.online/",
     },
     image: "/projects/tejpraksh.online.png",
     isFlagship: false,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { projects, socialLinks } from '../data/portfolioData';
+import ElectricBorder from './ElectricBorder';
 
 const TerminalAnimation = () => {
   const [text, setText] = useState('');
@@ -192,7 +193,7 @@ const ProjectCard = ({ project, aosDelay }) => (
               }`}
             >
               <ExternalLinkIcon />
-              {project.links.demo ? 'Live Demo' : 'Demo Coming Soon'}
+              {project.links.demo ? 'Visit Site' : 'Demo Coming Soon'}
             </a>
           )}
 
@@ -258,13 +259,31 @@ const Projects = () => {
 
         {/* Project Cards */}
         <div className="flex flex-col gap-6 md:gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard 
-              key={project.id} 
-              project={project} 
-              aosDelay={String((index + 1) * 100)}
-            />
-          ))}
+          {projects.map((project, index) => {
+            const card = (
+              <ProjectCard 
+                key={`card-${project.id}`} 
+                project={project} 
+                aosDelay={String((index + 1) * 100)}
+              />
+            );
+
+            if (project.id === 'tejprash') {
+              return (
+                <ElectricBorder
+                  key={project.id}
+                  color="#ff2a2a"
+                  speed={0.75}
+                  chaos={0.15}
+                  borderRadius={16}
+                  className="w-full h-full"
+                >
+                  {card}
+                </ElectricBorder>
+              );
+            }
+            return <React.Fragment key={project.id}>{card}</React.Fragment>;
+          })}
 
           {/* Coming Soon Card with Terminal Combo */}
           <div 

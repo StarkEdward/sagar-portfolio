@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const schedule = [
   { start: "00:00", end: "07:30", icon: "🌙", text: "Sleeping (My CI/CD pipelines are working though!)" },
@@ -75,48 +76,52 @@ const LiveStatus = () => {
         `}
       </style>
 
-      <div className="fixed top-[75px] left-2 right-6 sm:left-4 sm:right-16 md:top-24 md:left-8 md:right-auto z-[60] pointer-events-auto group scale-[0.75] sm:scale-[0.85] md:scale-[0.85] origin-top-left transition-transform duration-500">
+      <motion.div 
+        drag 
+        dragMomentum={false} 
+        className="fixed top-[75px] left-2 right-6 sm:left-4 sm:right-16 md:top-24 md:left-8 md:right-auto z-[60] pointer-events-auto group scale-[0.75] sm:scale-[0.85] md:scale-[0.85] origin-top-left transition-transform duration-500 cursor-grab active:cursor-grabbing"
+      >
         
         {/* Outer Cyberpunk Container */}
         <div 
-          className="relative w-full md:w-auto bg-[#050505]/95 backdrop-blur-md border border-red-500/40 p-2.5 md:p-3.5 flex items-center gap-3 md:gap-4 shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all duration-500 md:group-hover:shadow-[0_0_25px_rgba(239,68,68,0.4)] md:group-hover:border-red-500/70"
+          className="relative w-full md:w-[450px] bg-[#050505]/95 backdrop-blur-md border border-green-500/40 p-2.5 md:p-3.5 flex items-center gap-3 md:gap-4 shadow-[0_0_15px_rgba(0,255,0,0.2)] transition-all duration-500 md:group-hover:shadow-[0_0_25px_rgba(0,255,0,0.4)] md:group-hover:border-green-500/70"
           style={{ clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }}
         >
           {/* Subtle breathing glow background behind the box */}
-          <div className="absolute inset-0 bg-red-500/5 animate-[pulse_4s_ease-in-out_infinite]"></div>
+          <div className="absolute inset-0 bg-green-500/5 animate-[pulse_4s_ease-in-out_infinite]"></div>
           
           {/* Radar Icon */}
-          <div className="relative w-8 h-8 md:w-9 md:h-9 rounded-full border border-red-500/30 flex items-center justify-center shrink-0 bg-black overflow-hidden shadow-[inset_0_0_10px_rgba(239,68,68,0.2)]">
+          <div className="relative w-8 h-8 md:w-9 md:h-9 rounded-full border border-green-500/30 flex items-center justify-center shrink-0 bg-black overflow-hidden shadow-[inset_0_0_10px_rgba(0,255,0,0.2)]">
             {/* Rotating sweep line */}
-            <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,transparent_70%,rgba(239,68,68,0.6)_100%)] animate-[spin_2s_linear_infinite]"></div>
+            <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,transparent_70%,rgba(0,255,0,0.6)_100%)] animate-[spin_2s_linear_infinite]"></div>
             {/* Concentric rings */}
-            <div className="absolute w-5 h-5 rounded-full border border-red-500/40"></div>
-            <div className="absolute w-2 h-2 rounded-full border border-red-500/60"></div>
+            <div className="absolute w-5 h-5 rounded-full border border-green-500/40"></div>
+            <div className="absolute w-2 h-2 rounded-full border border-green-500/60"></div>
             {/* Center blip */}
-            <div className="absolute w-1 h-1 rounded-full bg-red-400 animate-ping"></div>
-            <div className="absolute w-1 h-1 rounded-full bg-red-500"></div>
+            <div className="absolute w-1 h-1 rounded-full bg-green-400 animate-ping"></div>
+            <div className="absolute w-1 h-1 rounded-full bg-green-500"></div>
             {/* Horizontal/Vertical grid lines */}
-            <div className="absolute w-full h-[1px] bg-red-500/20"></div>
-            <div className="absolute h-full w-[1px] bg-red-500/20"></div>
+            <div className="absolute w-full h-[1px] bg-green-500/20"></div>
+            <div className="absolute h-full w-[1px] bg-green-500/20"></div>
           </div>
           
           {/* Status Content */}
           <div className="flex flex-col overflow-hidden relative z-10 flex-1 min-w-0 pr-2">
             {/* Top Label */}
             <div className="flex items-center gap-2 mb-0.5 md:mb-1">
-              <span className="text-[9px] md:text-[14px] text-red-500 font-mono font-bold tracking-widest uppercase">
+              <span className="text-[9px] md:text-[14px] text-green-500 font-mono font-bold tracking-widest uppercase">
                 Live: Tracking Sagar
               </span>
-              {/* Blinking recording indicator */}
-              <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500 animate-[pulse_1s_ease-in-out_infinite]"></span>
+              {/* Blinking recording indicator (already green, but we can make it red or leave it green) */}
+              <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-red-500 animate-[pulse_1s_ease-in-out_infinite]"></span>
             </div>
             
             {/* Actual Status Text */}
             <div className="flex items-center gap-1.5 md:gap-2 flex-1 min-w-0">
               <span className="text-sm md:text-base shrink-0 opacity-90 grayscale-[0.2] drop-shadow-md">{status.icon}</span>
-              <span className="text-red-400 font-bold text-xs md:text-sm shrink-0">Currently:</span>
+              <span className="text-green-400 font-bold text-xs md:text-sm shrink-0">Currently:</span>
               
-              <div className="marquee-container flex-1 min-w-0 md:max-w-[280px]">
+              <div className="marquee-container flex-1 min-w-0 md:max-w-[100%]">
                 <span className="marquee-content text-white/90 text-xs md:text-sm font-semibold tracking-wide">
                   {status.text}
                 </span>
@@ -125,12 +130,12 @@ const LiveStatus = () => {
           </div>
 
           {/* Decorative corner tech elements */}
-          <div className="absolute top-0 right-0 w-3 h-[1px] bg-red-500"></div>
-          <div className="absolute top-0 right-0 w-[1px] h-3 bg-red-500"></div>
-          <div className="absolute bottom-0 left-0 w-3 h-[1px] bg-red-500"></div>
-          <div className="absolute bottom-0 left-0 w-[1px] h-3 bg-red-500"></div>
+          <div className="absolute top-0 right-0 w-3 h-[1px] bg-green-500"></div>
+          <div className="absolute top-0 right-0 w-[1px] h-3 bg-green-500"></div>
+          <div className="absolute bottom-0 left-0 w-3 h-[1px] bg-green-500"></div>
+          <div className="absolute bottom-0 left-0 w-[1px] h-3 bg-green-500"></div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
