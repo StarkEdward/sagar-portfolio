@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import stackImage from '../assets/hero video/hero-image.png';
 import { aboutContent } from '../data/portfolioData';
 
@@ -64,6 +65,9 @@ const GitLabIcon = () => (
 );
 
 const About = () => {
+  const bioRef = useRef(null);
+  const isInView = useInView(bioRef, { once: true, margin: "-100px" });
+
   return (
     <section id="about" className="bg-[#ff2a2a] pt-20 pb-40 px-6 md:px-12 w-full relative overflow-hidden font-sans">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start">
@@ -100,7 +104,11 @@ const About = () => {
         <div data-aos="fade-left" data-aos-delay="200" className="flex-1 text-white mt-8 md:mt-0 relative z-20">
           
           <h2 className="text-4xl md:text-5xl font-black text-black mb-4">{aboutContent.heading}</h2>
-          <p 
+          <motion.p 
+            ref={bioRef}
+            initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" }}
+            animate={{ clipPath: isInView ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)" : "polygon(0 0, 0 0, 0 100%, 0 100%)" }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
             className="text-lg font-bold mb-12 leading-relaxed max-w-3xl text-red-50"
             dangerouslySetInnerHTML={{ __html: aboutContent.bio }}
           />

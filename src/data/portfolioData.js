@@ -28,7 +28,7 @@ export const heroContent = {
   greeting: "Hi, I'm Sagar Kamble",
   titleHighlight: "DevOps Engineer",
   subtitle:
-    "I build efficient, scalable cloud solutions through automation using Terraform, Kubernetes, and AWS.",
+    "I build efficient, scalable web applications and deploy them to the cloud through automation and modern DevOps practices.",
   ctaPrimary: { text: "View My Work", href: "#projects" },
   ctaSecondary: {
     text: "Call Me",

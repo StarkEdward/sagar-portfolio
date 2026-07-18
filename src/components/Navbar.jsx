@@ -56,7 +56,8 @@ const Navbar = () => {
               key={link} 
               href={`#${link.toLowerCase()}`}
               onClick={(e) => link === 'Home' && handleNavClick(e, link)}
-              className="text-white/80 hover:text-white font-medium relative group transition-colors duration-300"
+              data-text={link}
+              className="text-white/80 hover:text-white font-medium relative group transition-colors duration-300 cyber-glitch-hover"
             >
               {link}
               {/* Smooth hover underline */}

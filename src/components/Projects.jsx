@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { projects, socialLinks } from '../data/portfolioData';
 import ElectricBorder from './ElectricBorder';
+import Tilt from 'react-parallax-tilt';
+import MagneticButton from './MagneticButton';
 
 const TerminalAnimation = () => {
   const [text, setText] = useState('');
   const [line2, setLine2] = useState('');
   const [line3, setLine3] = useState('');
   const [progress, setProgress] = useState('');
+  const [line4, setLine4] = useState('');
+  const [line5, setLine5] = useState('');
+  const [line6, setLine6] = useState('');
+  const [line7, setLine7] = useState('');
+  const [line8, setLine8] = useState('');
   
   useEffect(() => {
     let isCancelled = false;
@@ -18,6 +25,11 @@ const TerminalAnimation = () => {
         setLine2('');
         setLine3('');
         setProgress('');
+        setLine4('');
+        setLine5('');
+        setLine6('');
+        setLine7('');
+        setLine8('');
 
         // Helper for typing text
         const typeText = async (setter, fullText, speed = 40) => {
@@ -57,8 +69,31 @@ const TerminalAnimation = () => {
         
         await countProgress();
         
-        // Wait at 99% before clearing and looping
-        await new Promise(r => setTimeout(r, 3500));
+        if (isCancelled) break;
+        setProgress(`[100%]`);
+        await new Promise(r => setTimeout(r, 400));
+        
+        if (isCancelled) break;
+        await typeText(setLine4, "> decrypting classified_project.enc...");
+        await new Promise(r => setTimeout(r, 400));
+        
+        if (isCancelled) break;
+        await typeText(setLine5, "> ERROR: Security firewall triggered 🔒");
+        await new Promise(r => setTimeout(r, 500));
+
+        if (isCancelled) break;
+        await typeText(setLine6, "> deploying countermeasures...");
+        await new Promise(r => setTimeout(r, 600));
+
+        if (isCancelled) break;
+        await typeText(setLine7, "> System halted: Developer requires caffeine to continue ☕");
+        await new Promise(r => setTimeout(r, 1000));
+
+        if (isCancelled) break;
+        await typeText(setLine8, "> aborting mission...");
+        
+        // Wait at the end before clearing and looping
+        await new Promise(r => setTimeout(r, 4000));
       }
     };
 
@@ -94,7 +129,37 @@ const TerminalAnimation = () => {
           <div className="text-red-400">
             {line3}
             <span className="ml-2">{progress}</span>
-            <span className="animate-pulse ml-1">_</span>
+            {line3.length > 0 && line4.length === 0 && <span className="animate-pulse ml-1">_</span>}
+          </div>
+        )}
+        {line4.length > 0 && (
+          <div className="text-yellow-400">
+            {line4}
+            {line4.length > 0 && line5.length === 0 && <span className="animate-pulse">_</span>}
+          </div>
+        )}
+        {line5.length > 0 && (
+          <div className="text-[#ff2a2a] font-bold">
+            {line5}
+            {line5.length > 0 && line6.length === 0 && <span className="animate-pulse">_</span>}
+          </div>
+        )}
+        {line6.length > 0 && (
+          <div className="text-blue-400">
+            {line6}
+            {line6.length > 0 && line7.length === 0 && <span className="animate-pulse">_</span>}
+          </div>
+        )}
+        {line7.length > 0 && (
+          <div className="text-purple-400 font-bold">
+            {line7}
+            {line7.length > 0 && line8.length === 0 && <span className="animate-pulse">_</span>}
+          </div>
+        )}
+        {line8.length > 0 && (
+          <div className="text-gray-400 italic">
+            {line8}
+            <span className="animate-pulse">_</span>
           </div>
         )}
       </div>
@@ -117,21 +182,30 @@ const ExternalLinkIcon = () => (
   </svg>
 );
 
-const ProjectCard = ({ project, aosDelay }) => (
-  <div 
-    data-aos="fade-up"
-    data-aos-delay={aosDelay}
-    className={`relative rounded-2xl p-[1px] group transition-all duration-500 ${
-      project.isFlagship 
-        ? 'bg-gradient-to-br from-red-500/50 via-white/10 to-red-500/30 hover:from-red-500 hover:via-red-400/30 hover:to-red-500/60' 
-        : 'bg-white/10 hover:bg-white/20'
-    }`}
+const ProjectCard = ({ project }) => (
+  <Tilt 
+    tiltMaxAngleX={5} 
+    tiltMaxAngleY={5} 
+    scale={1.02} 
+    transitionSpeed={1000} 
+    glareEnable={true} 
+    glareMaxOpacity={0.1} 
+    glareColor="#ffffff" 
+    glarePosition="all"
+    className="h-full"
   >
-    <div className={`rounded-2xl p-6 md:p-8 h-full backdrop-blur-md transition-all duration-500 flex flex-col md:flex-row gap-8 items-center ${
-      project.isFlagship 
-        ? 'bg-[#0f0f0f]/95 group-hover:bg-[#0f0f0f]/90' 
-        : 'bg-[#111111]/90 group-hover:bg-[#111111]/80'
-    }`}>
+    <div 
+      className={`relative rounded-2xl p-[1px] group transition-all duration-500 h-full ${
+        project.isFlagship 
+          ? 'bg-gradient-to-br from-red-500/50 via-white/10 to-red-500/30 hover:from-red-500 hover:via-red-400/30 hover:to-red-500/60' 
+          : 'bg-white/10 hover:bg-white/20'
+      }`}
+    >
+      <div className={`rounded-2xl p-6 md:p-8 h-full backdrop-blur-md transition-all duration-500 flex flex-col md:flex-row gap-8 items-center ${
+        project.isFlagship 
+          ? 'bg-[#0f0f0f]/95 group-hover:bg-[#0f0f0f]/90' 
+          : 'bg-[#111111]/90 group-hover:bg-[#111111]/80'
+      }`}>
       
       {/* Content Side */}
       <div className="flex-1 w-full">
@@ -169,15 +243,17 @@ const ProjectCard = ({ project, aosDelay }) => (
         <div className="flex flex-wrap gap-3">
           {/* GitHub */}
           {project.links.github && (
-            <a 
-              href={project.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300 group/btn"
-            >
-              <GitHubIcon />
-              GitHub
-            </a>
+            <MagneticButton>
+              <a 
+                href={project.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300 group/btn"
+              >
+                <GitHubIcon />
+                GitHub
+              </a>
+            </MagneticButton>
           )}
 
           {/* Live Demo (single) */}
@@ -199,15 +275,17 @@ const ProjectCard = ({ project, aosDelay }) => (
 
           {/* Frontend Demo (Karigar) */}
           {project.links.frontendDemo && (
-            <a 
-              href={project.links.frontendDemo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#ff2a2a] text-white text-sm font-semibold hover:bg-red-600 hover:shadow-[0_0_20px_rgba(255,42,42,0.4)] transition-all duration-300"
-            >
-              <ExternalLinkIcon />
-              Frontend Demo
-            </a>
+            <MagneticButton>
+              <a 
+                href={project.links.frontendDemo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#ff2a2a] text-white text-sm font-semibold hover:bg-red-600 hover:shadow-[0_0_20px_rgba(255,42,42,0.4)] transition-all duration-300"
+              >
+                <ExternalLinkIcon />
+                Frontend Demo
+              </a>
+            </MagneticButton>
           )}
 
           {/* Backend API (Karigar) */}
@@ -236,7 +314,11 @@ const ProjectCard = ({ project, aosDelay }) => (
         </div>
       )}
     </div>
-  </div>
+    
+    {/* Subtle scanline effect */}
+    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.02),rgba(255,255,255,0))] opacity-50 translate-y-[-100%] group-hover:animate-[shimmer_2s_infinite]"></div>
+    </div>
+  </Tilt>
 );
 
 const Projects = () => {
@@ -260,29 +342,35 @@ const Projects = () => {
         {/* Project Cards */}
         <div className="flex flex-col gap-6 md:gap-8">
           {projects.map((project, index) => {
+            const delay = String((index + 1) * 100);
             const card = (
               <ProjectCard 
                 key={`card-${project.id}`} 
                 project={project} 
-                aosDelay={String((index + 1) * 100)}
               />
             );
 
             if (project.id === 'tejprash') {
               return (
-                <ElectricBorder
-                  key={project.id}
-                  color="#ff2a2a"
-                  speed={0.75}
-                  chaos={0.15}
-                  borderRadius={16}
-                  className="w-full h-full"
-                >
-                  {card}
-                </ElectricBorder>
+                <div key={project.id} data-aos="fade-up" data-aos-delay={delay}>
+                  <ElectricBorder
+                    color="#ff2a2a"
+                    speed={0.75}
+                    chaos={0.15}
+                    borderRadius={16}
+                    className="w-full h-full"
+                  >
+                    {card}
+                  </ElectricBorder>
+                </div>
               );
             }
-            return <React.Fragment key={project.id}>{card}</React.Fragment>;
+
+            return (
+              <div key={project.id} data-aos="fade-up" data-aos-delay={delay}>
+                {card}
+              </div>
+            );
           })}
 
           {/* Coming Soon Card with Terminal Combo */}
