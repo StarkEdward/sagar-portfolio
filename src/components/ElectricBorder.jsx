@@ -141,6 +141,9 @@ const ElectricBorder = ({
     const container = containerRef.current;
     if (!canvas || !container) return;
 
+    // Ensure canvas never blocks pointer events
+    canvas.style.pointerEvents = 'none';
+
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -281,8 +284,8 @@ const ElectricBorder = ({
 
   return (
     <div ref={containerRef} className={`electric-border ${className ?? ''}`} style={{ ...vars, ...style }}>
-      <div className="eb-canvas-container">
-        <canvas ref={canvasRef} className="eb-canvas" />
+      <div className="eb-canvas-container" style={{ pointerEvents: 'none' }}>
+        <canvas ref={canvasRef} className="eb-canvas" style={{ pointerEvents: 'none' }} />
       </div>
       <div className="eb-layers">
         <div className="eb-glow-1" />

@@ -183,7 +183,7 @@ export const projects = [
     id: "tejprash",
     number: "02",
     badge: "⚡ Booking WebApp",
-    title: "tejprash.online",
+    title: "tejprakash.online",
     description:
       "An on-demand electrician booking web application connecting users with verified local electricians. It handles real-time booking, provider availability, scheduling, and user management.",
     techTags: ["React", "Express", "MongoDB", "AWS"],

@@ -12,17 +12,18 @@
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  z-index: 2;
+  z-index: 0;
 }
 
 .eb-canvas {
   display: block;
+  pointer-events: none;
 }
 
 .eb-content {
   position: relative;
   border-radius: inherit;
-  z-index: 1;
+  z-index: 3;
 }
 
 .eb-layers {

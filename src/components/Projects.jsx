@@ -165,7 +165,7 @@ const TerminalAnimation = () => {
       </div>
       
       {/* Subtle scanline effect */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.02),rgba(255,255,255,0))] opacity-50 translate-y-[-100%] group-hover:animate-[shimmer_2s_infinite]"></div>
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.02),rgba(255,255,255,0))] opacity-50 translate-y-[-100%] group-hover:animate-[shimmer_2s_infinite]"></div>
     </div>
   );
 };
@@ -240,20 +240,18 @@ const ProjectCard = ({ project }) => (
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 relative z-50">
           {/* GitHub */}
           {project.links.github && (
-            <MagneticButton>
-              <a 
-                href={project.links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300 group/btn"
-              >
-                <GitHubIcon />
-                GitHub
-              </a>
-            </MagneticButton>
+            <a 
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300 group/btn relative z-50"
+            >
+              <GitHubIcon />
+              GitHub
+            </a>
           )}
 
           {/* Live Demo (single) */}
@@ -262,7 +260,8 @@ const ProjectCard = ({ project }) => (
               href={project.links.demo || '#'}
               target={project.links.demo ? "_blank" : undefined}
               rel={project.links.demo ? "noopener noreferrer" : undefined}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+              onClick={project.links.demo ? undefined : (e) => e.preventDefault()}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 relative z-50 ${
                 project.links.demo 
                   ? 'bg-[#ff2a2a] text-white hover:bg-red-600 hover:shadow-[0_0_20px_rgba(255,42,42,0.4)]' 
                   : 'bg-white/5 text-white/40 border border-white/10 cursor-not-allowed'
@@ -273,19 +272,18 @@ const ProjectCard = ({ project }) => (
             </a>
           )}
 
+
           {/* Frontend Demo (Karigar) */}
           {project.links.frontendDemo && (
-            <MagneticButton>
-              <a 
-                href={project.links.frontendDemo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#ff2a2a] text-white text-sm font-semibold hover:bg-red-600 hover:shadow-[0_0_20px_rgba(255,42,42,0.4)] transition-all duration-300"
-              >
-                <ExternalLinkIcon />
-                Frontend Demo
-              </a>
-            </MagneticButton>
+            <a 
+              href={project.links.frontendDemo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#ff2a2a] text-white text-sm font-semibold hover:bg-red-600 hover:shadow-[0_0_20px_rgba(255,42,42,0.4)] transition-all duration-300 relative z-50"
+            >
+              <ExternalLinkIcon />
+              Frontend Demo
+            </a>
           )}
 
           {/* Backend API (Karigar) */}
@@ -316,7 +314,7 @@ const ProjectCard = ({ project }) => (
     </div>
     
     {/* Subtle scanline effect */}
-    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.02),rgba(255,255,255,0))] opacity-50 translate-y-[-100%] group-hover:animate-[shimmer_2s_infinite]"></div>
+    <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.02),rgba(255,255,255,0))] opacity-50 translate-y-[-100%] group-hover:animate-[shimmer_2s_infinite]"></div>
     </div>
   </Tilt>
 );
